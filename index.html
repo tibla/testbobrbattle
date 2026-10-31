@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100d19">
+  <title>BobrBattle — CS2 Skin Upgrader</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="BobrBattle главная">
+        <span class="brand-mark">B</span>
+        <span>Bobr<span class="brand-purple">Battle</span><small>SKIN UPGRADE</small></span>
+      </a>
+      <div class="nav-label">МЕНЮ</div>
+      <button class="nav-item active" data-page="upgrade"><span>↗</span> Upgrader</button>
+      <button class="nav-item" data-page="roulette"><span>◉</span> Roulette <em>NEW</em></button>
+      <button class="nav-item" data-page="inventory"><span>▦</span> Инвентарь</button>
+      <button class="nav-item" data-page="top"><span>♛</span> Топ игроков</button>
+      <div class="sidebar-bottom">
+        <div class="online-dot"></div>
+        <span>Сервер работает</span>
+        <span class="version">v0.1</span>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">B</span> Bobr<span class="brand-purple">Battle</span></div>
+        <div class="topbar-right">
+          <div class="balance-box"><span class="coin">✦</span><span id="balance">1 000</span><small>BP</small></div>
+          <div class="avatar" id="avatar">G</div>
+        </div>
+      </header>
+
+      <section class="page active" id="page-upgrade">
+        <div class="page-heading">
+          <div><div class="eyebrow">ГЛАВНЫЙ РЕЖИМ</div><h1>Skin <span>Upgrader</span></h1>
+          <p>Прокачивай виртуальные скины и собирай свою коллекцию.</p></div>
+          <div class="mode-pill"><span></span> DEMO MODE</div>
+        </div>
+
+        <div class="upgrade-layout">
+          <div class="upgrade-panel panel">
+            <div class="panel-title"><div><span class="step">01</span> ТВОЙ ПРЕДМЕТ</div><span class="muted">ВЫБЕРИ СКИН</span></div>
+            <div class="skin-slot" id="source-slot">
+              <div class="slot-placeholder"><div class="slot-plus">＋</div><b>Выбери исходный скин</b><small>Предмет из твоего инвентаря</small></div>
+            </div>
+            <div class="skin-picker" id="source-picker"></div>
+          </div>
+
+          <div class="upgrade-center">
+            <div class="upgrade-arrow">➜</div>
+            <div class="chance-ring" id="chance-ring"><div><strong id="chance">0%</strong><small>ШАНС</small></div></div>
+            <button class="primary-button" id="upgrade-button" disabled>ПРОКАЧАТЬ <span>↗</span></button>
+            <div class="upgrade-hint" id="upgrade-hint">Выбери два предмета</div>
+          </div>
+
+          <div class="upgrade-panel panel">
+            <div class="panel-title"><div><span class="step">02</span> ЖЕЛАЕМЫЙ ПРЕДМЕТ</div><span class="muted">ЦЕЛЬ</span></div>
+            <div class="skin-slot target-slot" id="target-slot">
+              <div class="slot-placeholder"><div class="slot-plus">＋</div><b>Выбери целевой скин</b><small>Предмет, который хочешь получить</small></div>
+            </div>
+            <div class="skin-picker" id="target-picker"></div>
+          </div>
+        </div>
+        <div class="notice"><span>ⓘ</span> Демоверсия: все скины и BP виртуальные. Нет денежных ставок, платежей или вывода средств.</div>
+        <div class="section-title"><h2>Как это работает</h2><span>3 простых шага</span></div>
+        <div class="how-grid">
+          <div class="how-card"><b>01</b><strong>Выбери предмет</strong><p>Укажи скин из своей коллекции.</p></div>
+          <div class="how-card"><b>02</b><strong>Выбери цель</strong><p>Посмотри шанс успешной прокачки.</p></div>
+          <div class="how-card"><b>03</b><strong>Проверь результат</strong><p>При успехе предмет появится в инвентаре.</p></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-roulette">
+        <div class="page-heading"><div><div class="eyebrow">СЛУЧАЙНАЯ НАГРАДА</div><h1>Skin <span>Roulette</span></h1><p>Бесплатная демо-рулетка с виртуальными предметами.</p></div><div class="mode-pill"><span></span> FREE</div></div>
+        <div class="roulette-panel panel">
+          <div class="roulette-track-wrap"><div class="roulette-marker"></div><div class="roulette-track" id="roulette-track"></div></div>
+          <div class="roulette-result" id="roulette-result">Нажми кнопку, чтобы получить бесплатный виртуальный скин</div>
+          <button class="primary-button roulette-button" id="roulette-button">ПОЛУЧИТЬ СКИН <span>✦</span></button>
+          <p class="muted center">Попытка бесплатная. BP не списываются.</p>
+        </div>
+      </section>
+
+      <section class="page" id="page-inventory">
+        <div class="page-heading"><div><div class="eyebrow">ТВОЯ КОЛЛЕКЦИЯ</div><h1>Мой <span>инвентарь</span></h1><p>Все виртуальные предметы, которые ты собрал.</p></div><div class="inventory-count"><strong id="inventory-count">0</strong><small>ПРЕДМЕТОВ</small></div></div>
+        <div class="inventory-toolbar"><span>ПРЕДМЕТЫ</span><span id="inventory-total">Стоимость: 0 BP</span></div>
+        <div class="inventory-grid" id="inventory-grid"></div>
+      </section>
+
+      <section class="page" id="page-top">
+        <div class="page-heading"><div><div class="eyebrow">СОРЕВНОВАНИЕ</div><h1>Топ <span>игроков</span></h1><p>Локальный демонстрационный рейтинг.</p></div></div>
+        <div class="panel leaderboard">
+          <div class="leader-row leader-head"><span>МЕСТО</span><span>ИГРОК</span><span>КОЛЛЕКЦИЯ</span></div>
+          <div class="leader-row"><b class="rank gold">01</b><span>🦫 BobrKing <small>Демо-игрок</small></span><strong>12 450 BP</strong></div>
+          <div class="leader-row"><b class="rank silver">02</b><span>⚡ SkinMaster <small>Демо-игрок</small></span><strong>9 820 BP</strong></div>
+          <div class="leader-row"><b class="rank bronze">03</b><span>🎯 AWPlover <small>Демо-игрок</small></span><strong>7 300 BP</strong></div>
+          <div class="leader-row"><b class="rank">04</b><span id="leader-name">👤 Ты <small>Локальный профиль</small></span><strong id="leader-value">0 BP</strong></div>
+        </div>
+      </section>
+
+      <footer>© 2026 BobrBattle <span>Неофициальный фан-проект. Не связан с Valve или Counter-Strike.</span></footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <div class="modal-backdrop" id="result-modal">
+    <div class="result-modal panel"><button class="modal-close" id="modal-close">×</button><div class="result-icon" id="result-icon">✦</div><div class="eyebrow">РЕЗУЛЬТАТ ПРОКАЧКИ</div><h2 id="result-title">Успех!</h2><p id="result-text"></p><button class="primary-button" id="result-ok">ПОНЯТНО</button></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
